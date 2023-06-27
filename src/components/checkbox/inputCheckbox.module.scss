@@ -1,0 +1,9 @@
+.inputCheckbox__label__isChecked {
+  @apply py-2 px-2 rounded-lg cursor-pointer select-none bg-purple-600 text-white;
+}
+.inputCheckbox__label__isNotChecked {
+  @apply py-2 px-2 rounded-lg cursor-pointer select-none bg-gray-200 text-purple-500 hover:bg-purple-300 hover:text-purple-600;
+}
+.inputCheckbox__input {
+  @apply hidden;
+}

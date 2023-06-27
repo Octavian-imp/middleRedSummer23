@@ -1,0 +1,27 @@
+.selectFilter__wrapper {
+  @apply bg-white p-2 flex items-center relative rounded-lg;
+}
+.selectFilter__body {
+  @apply flex items-center font-semibold;
+}
+.selectFilter__placeholder {
+  @apply text-zinc-400 mr-2;
+}
+.selectFilter__activeValue {
+  @apply text-black mr-1;
+}
+.selectFilter__isNotOpen {
+  @apply text-black w-5 h-5;
+}
+.selectFilter__isOpen {
+  @apply text-black w-5 h-5 rotate-180;
+}
+.selectFilter__isNotOpenList {
+  @apply bg-white text-black absolute right-0 top-full -translate-x-1/2 hidden;
+}
+.selectFilter__isOpenList {
+  @apply bg-white text-black absolute right-0 top-full mt-2 py-1 rounded-md -translate-x-1/2 block;
+}
+.selectFilter__listItems {
+  @apply hover:bg-zinc-200 px-4 py-1 cursor-pointer;
+}
