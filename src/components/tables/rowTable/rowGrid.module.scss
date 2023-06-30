@@ -1,0 +1,12 @@
+.tbody__row {
+  @apply grid grid-cols-9 w-full border-b-2 border-zinc-200;
+}
+.row__column {
+  @apply p-4 whitespace-nowrap col-span-1;
+}
+.row__column__2 {
+  @apply p-4 whitespace-nowrap col-span-2;
+}
+.row__column__right {
+  @apply text-right p-4 col-span-1;
+}

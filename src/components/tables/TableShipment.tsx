@@ -1,32 +1,40 @@
-import RowTable from "./rowTable";
+import dataTableShipment from "@/seeders/dataTableShipment";
+import RowTable from "./rowTable/rowTable";
+import styles from "./tableShipment.module.scss";
 
 export const TableShipment = () => {
   return (
-    <div className="overflow-x-auto">
-      <table className="table-auto w-full">
-        <thead className=" text-zinc-400 ">
-          <tr className="text-left">
-            <th className="p-4 bg-white">Destination</th>
-            <th className="p-4 bg-white">Shipment number</th>
-            <th className="p-4 bg-white">Truck</th>
-            <th className="p-4 bg-white text-right">Total weight, kg</th>
-            <th className="p-4 bg-white">Status</th>
-            <th className="p-4 bg-white">Departure date</th>
-            <th className="p-4 bg-white">Arrival date</th>
-            <th className="p-4 bg-white">Time delay</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white">
-          <RowTable
-            destStart="Venice"
-            destEnd="Moscow"
-            shipNumber="b1554894"
-            arrDate={new Date(2023, 6, 27, 12, 34)}
-            status="Delayed"
-            truck="Iveco 1005"
-          />
-        </tbody>
-      </table>
+    <div className={styles.table__wrapper}>
+      <div className={styles.table__container}>
+        <div className={styles.thead__row}>
+          <span className={styles.thead__row__column__2}>Destination</span>
+          <span className={styles.thead__row__column}>Shipment number</span>
+          <span className={styles.thead__row__column}>Truck</span>
+          <span className={styles.thead__row__column__right}>
+            Total weight, kg
+          </span>
+          <span className={styles.thead__row__column}>Status</span>
+          <span className={styles.thead__row__column}>Departure date</span>
+          <span className={styles.thead__row__column}>Arrival date</span>
+          <span className={styles.thead__row__column}>Time delay</span>
+        </div>
+        <div className={styles.tbody__container}>
+          {dataTableShipment &&
+            dataTableShipment.map((item, index) => (
+              <RowTable
+                key={index}
+                destStart={item.destStart}
+                destEnd={item.destEnd}
+                shipNumber={item.shipNumber}
+                status={item.status}
+                truck={item.truck}
+                arrDate={item.arrDate}
+                depDate={item.depDate}
+                totalWeight={item.totalWeight}
+              />
+            ))}
+        </div>
+      </div>
     </div>
   );
 };

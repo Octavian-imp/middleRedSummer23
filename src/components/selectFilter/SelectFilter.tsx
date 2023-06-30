@@ -15,7 +15,11 @@ const SelectFilter = ({ label, values, defaultValue }: TSelectFilter) => {
         <span className={styles.selectFilter__placeholder}>{label}:</span>
         <span className={styles.selectFilter__activeValue}>{activeValue}</span>
         <BsChevronDown
-          className={styles.isOpen? styles.selectFilter__isOpen : styles.selectFilter__isNotOpen}
+          className={
+            isOpen
+              ? styles.selectFilter__isOpen
+              : styles.selectFilter__isNotOpen
+          }
         />
       </div>
       <ul

@@ -1,5 +1,5 @@
 .selectFilter__wrapper {
-  @apply bg-white p-2 flex items-center relative rounded-lg;
+  @apply bg-white p-2 flex items-center relative rounded-lg cursor-pointer;
 }
 .selectFilter__body {
   @apply flex items-center font-semibold;
@@ -20,7 +20,7 @@
   @apply bg-white text-black absolute right-0 top-full -translate-x-1/2 hidden;
 }
 .selectFilter__isOpenList {
-  @apply bg-white text-black absolute right-0 top-full mt-2 py-1 rounded-md -translate-x-1/2 block;
+  @apply bg-white text-black absolute right-0 top-full mt-2 py-1 rounded-md -translate-x-1/2 block shadow-md;
 }
 .selectFilter__listItems {
   @apply hover:bg-zinc-200 px-4 py-1 cursor-pointer;

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply duration-300;
+  @apply duration-200;
 }
 
 html,

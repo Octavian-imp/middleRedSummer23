@@ -1,10 +1,8 @@
+import { EStatuses } from "@/global/EStatuses";
+
 export type TBadge = {
   text: string;
-  status: Statuses;
+  status: EStatuses;
 };
-export enum Statuses {
-  success,
-  warning,
-  danger,
-  info,
-}
+
+

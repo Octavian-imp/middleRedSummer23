@@ -1,13 +1,14 @@
 import InputCheckbox from "@/components/checkbox/InputCheckbox";
 import SelectFilter from "@/components/selectFilter/SelectFilter";
 import { TableShipment } from "@/components/tables/TableShipment";
+import styles from "./index.module.scss";
 
 const TableShipmentPage = () => {
   return (
-    <div className="flex flex-col xl:w-3/4 ml-auto my-3 mr-3">
-      <div className="flex justify-between mb-16">
-        <div className="flex items-center gap-2">
-          <span className="mr-4 font-semibold text-2xl">Shipments</span>
+    <div className={styles.content__wrapper}>
+      <div className={styles.content__toolbar}>
+        <div className={styles.toolbar__block}>
+          <span className={styles.toolbar__title}>Shipments</span>
           <InputCheckbox id="arrivalId" name="arrivalName" label="Arrival" />
           <InputCheckbox
             id="availableId"
