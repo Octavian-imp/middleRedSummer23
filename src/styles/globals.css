@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 * {
-  @apply duration-200;
+    @apply duration-200 will-change-auto;
 }
 
 html,
-body {
-  @apply min-h-full bg-gray-100 overflow-hidden;
+body,
+#__next {
+    @apply min-h-screen bg-gray-100 overflow-x-hidden flex w-full;
+}
+
+input {
+    @apply outline-none;
 }

@@ -1,0 +1,21 @@
+@mixin badge_default {
+  @apply rounded-lg p-2 capitalize font-semibold;
+}
+.badge {
+  &__success {
+    @include badge_default();
+    @apply bg-green-100 text-green-600;
+  }
+  &__warning {
+    @include badge_default();
+    @apply bg-yellow-100 text-yellow-600;
+  }
+  &__danger {
+    @include badge_default();
+    @apply bg-red-100 text-red-600;
+  }
+  &__info {
+    @include badge_default();
+    @apply bg-gray-100 text-gray-600;
+  }
+}

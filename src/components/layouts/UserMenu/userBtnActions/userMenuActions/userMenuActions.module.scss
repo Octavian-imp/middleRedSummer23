@@ -1,0 +1,15 @@
+@mixin menu_wrapper_global {
+    @apply text-zinc-500 bg-white text-lg p-3 shadow-sm rounded-lg absolute bottom-8 z-10 left-0;
+}
+.menu__wrapper {
+    &__hidden {
+        @include menu_wrapper_global();
+        @apply hidden;
+    }
+    &__visible {
+        @include menu_wrapper_global();
+    }
+}
+.menu__item {
+    @apply flex items-center gap-x-3 hover:bg-zinc-100 p-2 rounded-[inherit];
+}

@@ -1,0 +1,12 @@
+.button__wrapper {
+    @apply rounded-full w-9 h-9 text-sm bg-gray-100 absolute top-4 right-0 translate-x-1/2 before:w-[70%] before:h-[70%] before:bg-purple-200 before:block before:rounded-full before:shadow-purple-500 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:z-[1];
+    .icon {
+        @apply z-[2] text-purple-900 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+    }
+    &__hidden {
+        @extend .button__wrapper;
+        .icon {
+            @apply rotate-180;
+        }
+    }
+}

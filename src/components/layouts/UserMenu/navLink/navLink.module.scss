@@ -1,0 +1,41 @@
+@mixin active_link_styles {
+    @apply text-purple-700 bg-zinc-200;
+}
+@mixin icon_styles {
+    // size-icon
+    svg,
+    img,
+    i[class*="fa*"] {
+        @apply text-2xl;
+    }
+}
+.link__wrapper {
+    @apply flex items-center text-lg w-full text-zinc-500 p-2 hover:bg-zinc-100 rounded-lg;
+    //styles for menu hidden - false
+    &__between {
+        @extend .link__wrapper;
+        @apply justify-between;
+        &__active {
+            @extend .link__wrapper__between;
+            @include active_link_styles();
+            @include icon_styles();
+        }
+    }
+    // styles for menu hidden - true
+    &__center {
+        @extend .link__wrapper;
+        @apply justify-center;
+        &__active {
+            @extend .link__wrapper__center;
+            @include active_link_styles();
+            @include icon_styles();
+        }
+    }
+    @include icon_styles();
+    .content {
+        @apply flex gap-x-2 items-center justify-start;
+    }
+}
+.placeholder__visible {
+    @apply absolute left-0 w-0.5 h-11 bg-purple-600;
+}

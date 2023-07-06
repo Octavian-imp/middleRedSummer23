@@ -1,0 +1,7 @@
+.menu__wrapper {
+    @apply bg-white h-full relative flex flex-col items-start px-3 py-5 lg:max-w-[20%] xl:max-w-[15%] flex-1 rounded-s-3xl;
+    &__hidden {
+        @extend .menu__wrapper;
+        @apply lg:max-w-[10%] xl:max-w-[6%];
+    }
+}

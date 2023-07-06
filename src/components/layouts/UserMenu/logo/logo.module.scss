@@ -1,0 +1,19 @@
+.logo__wrapper {
+    @apply flex gap-x-3 items-center mb-4 mx-2;
+    &__hidden {
+        @extend .logo__wrapper;
+        @apply self-center;
+    }
+}
+.icon {
+    @apply text-4xl text-purple-600;
+}
+.content__wrapper {
+    @apply flex flex-col;
+    .company__name {
+        @apply text-purple-600 text-lg font-bold;
+    }
+    .company__service {
+        @apply text-zinc-500;
+    }
+}

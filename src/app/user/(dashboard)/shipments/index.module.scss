@@ -1,0 +1,12 @@
+.content__wrapper {
+    @apply flex flex-col xl:w-3/4 flex-1;
+}
+.content__toolbar {
+    @apply flex justify-between mb-10;
+}
+.toolbar__block {
+    @apply flex items-center gap-2;
+}
+.toolbar__title {
+    @apply mr-4 font-semibold text-2xl;
+}
