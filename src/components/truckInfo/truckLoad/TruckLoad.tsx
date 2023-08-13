@@ -3,43 +3,37 @@ import SecondaryButton from "@/components/buttons/secondary/SecondaryButton";
 import ModalTable from "@/components/modals/ModalTable";
 import PercentProgress from "@/components/progressbar/percent/PercentProgress";
 import TruckProgress from "@/components/progressbar/truck/TruckProgress";
-import { IRowTableSeed } from "@/components/tables/arrivalShipment/rowTable/types";
+import {
+    ILoadInfo,
+    IRowTableSeed,
+} from "@/components/tables/arrivalShipment/rowTable/types";
 import IconTooltip from "@/components/tooltips/iconTooltip/IconTooltip";
-import { DragEventHandler, useEffect, useState } from "react";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { TActionSelectParcel, defaultStateSelectParcel, setDefault } from "@/reactReducers/parcelSelected";
+import { ADD_PARCELS } from "@/redux/actions/shipmentsActions";
+import { TParcelsList } from "@/seeders/parcelsShipment";
+import { usePathname } from "next/navigation";
+import {
+    Dispatch,
+    DragEventHandler,
+    SetStateAction,
+    useEffect,
+    useState,
+} from "react";
 import { BsBox, BsTruck } from "react-icons/bs";
-
-const tier = [
-    {
-        label: "Upper tier",
-        cells: [
-            { maxWeight: 150, isEdit: true },
-            { maxWeight: 100, isEdit: false },
-            { maxWeight: 200, isEdit: false },
-        ],
-    },
-    {
-        label: "Middle tier",
-        cells: [
-            { maxWeight: 35, isEdit: false },
-            { maxWeight: 50, isEdit: true },
-            { maxWeight: 75, isEdit: false },
-        ],
-    },
-    {
-        label: "Low tier",
-        cells: [
-            { maxWeight: 10, isEdit: false },
-            { maxWeight: 15, isEdit: true },
-            { maxWeight: 20, isEdit: true },
-        ],
-    },
-];
 
 type Props = {
     truckInfo: IRowTableSeed;
+    setChangeParcels: Dispatch<SetStateAction<TParcelsList[]>>;
+    dispatchParcelSelected: Dispatch<TActionSelectParcel>;
 };
 
-const TruckLoad = ({ truckInfo }: Props) => {
+const TruckLoad = ({ truckInfo, setChangeParcels, dispatchParcelSelected }: Props) => {
+    const path = usePathname();
+    const reduxDispatch = useAppDispatch();
+
+    const [loadParcelsInfo, setLoadParcelsInfo] = useState<ILoadInfo[]>([]);
+
     const [currentWeightTruck, setCurrentWeightTruck] = useState<number>(0);
     useEffect(() => {
         if (typeof truckInfo?.totalWeight !== "undefined") {
@@ -54,20 +48,54 @@ const TruckLoad = ({ truckInfo }: Props) => {
 
         if (typeof dropDataJson !== "undefined") {
             let maxWeight = +el.target.dataset.maxWeight;
-            if (maxWeight > dropDataJson.totalWeight) {
+            if (
+                maxWeight > dropDataJson.totalWeight &&
+                currentWeightTruck + +dropDataJson.totalWeight <=
+                    truckInfo.maxWeight
+            ) {
+                setTimeout(() => {
+                    setChangeParcels((prev) => {
+                        return prev.filter((curr) => {
+                            if (
+                                data.parcels.some(
+                                    (el: Omit<ILoadInfo, "tierInfo">) =>
+                                        el.parcelNumber === curr.parcelNumber
+                                )
+                            ) {
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        });
+                    });
+                }, 0);
+
                 maxWeight -= +dropDataJson.totalWeight;
                 setCurrentWeightTruck(
                     (prev) => prev + +dropDataJson.totalWeight
                 );
                 el.target.classList.remove("bg-success");
                 el.target.classList.add("bg-primary", "pointer-events-none");
+
                 const data = {
                     tierInfo: {
-                        id: el.target.id,
-                        name: el.target.dataset.name,
+                        idCell: +el.target.id,
+                        name: el.target.dataset.tierName,
                     },
-                    data: dropDataJson,
+                    ...dropDataJson,
                 };
+                setLoadParcelsInfo((prev) => [
+                    ...prev,
+                    ...data.parcels.map(
+                        (parcel: Omit<ILoadInfo, "tierInfo">): ILoadInfo => ({
+                            tierInfo: { ...data.tierInfo },
+                            parcelNumber: parcel.parcelNumber,
+                            admissionDate: parcel.admissionDate,
+                            weight: parcel.weight,
+                        })
+                    ),
+                ]);
+                dispatchParcelSelected({type: setDefault, payload: defaultStateSelectParcel})
             } else {
                 alert("Total weight is over");
             }
@@ -103,7 +131,7 @@ const TruckLoad = ({ truckInfo }: Props) => {
             {truckInfo.tiersInfo.map((tier) => (
                 <div key={tier.name} className="flex flex-col mb-4 gap-y-4">
                     <div className="flex items-center">
-                        <span className="mr-2">{tier.name}</span>
+                        <span className="mr-2 capitalize">{tier.name}</span>
                         <IconTooltip tooltipText="Tooltip" />
                     </div>
                     <div className="flex gap-x-2 ">
@@ -111,13 +139,14 @@ const TruckLoad = ({ truckInfo }: Props) => {
                             <label
                                 key={cell.maxWeight}
                                 htmlFor={`${tier.name}_${index}`}
-                                data-name={`${tier.name}`}
+                                data-tier-name={`${tier.name}`}
                                 className={`flex-1 ${
                                     cell.isAvailable
                                         ? "bg-success"
                                         : "bg-slate-300 pointer-events-none"
                                 } h-24 rounded-xl`}
                                 data-max-weight={cell.maxWeight}
+                                title={`max weight: ${cell.maxWeight}`}
                                 id={`${index}`}
                                 onDragOver={(el) => el.preventDefault()}
                                 onDrop={handleOnDrop}
@@ -159,6 +188,20 @@ const TruckLoad = ({ truckInfo }: Props) => {
                     className="flex-1"
                     iconComponent={<BsTruck />}
                     text="Finish loading"
+                    handlerClick={(e) => {
+                        try {
+                            reduxDispatch({
+                                type: ADD_PARCELS,
+                                payload: {
+                                    loadParcelsInfo,
+                                    shipNumber: path.split("/").at(-1),
+                                },
+                            });
+                        } catch (error) {
+                            e.preventDefault();
+                            console.error(error);
+                        }
+                    }}
                 />
             </div>
         </div>

@@ -1,3 +1,4 @@
+'use client';
 import { percentValue } from "@/global/PercentValue";
 import {
     settingsProgressDanger,
@@ -23,7 +24,7 @@ const PercentProgress = ({ totalValue, maxValue }: Props) => {
             className={`${progressColorText} text-3xl`}
             title={`${totalValue}/${maxValue}`}
         >
-            {totalValue && maxValue && percentValue(totalValue, maxValue)}%
+            {progressWidth}%
         </span>
     );
 };

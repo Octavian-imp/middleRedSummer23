@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Crumb from "./crumb/crumb";
+import Crumb from "./crumb/Crumb";
 
 const Breadcrumbs = () => {
     const path = usePathname();

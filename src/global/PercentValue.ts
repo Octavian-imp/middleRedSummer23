@@ -4,6 +4,9 @@
  * @param {number} totalValue - максимальное значение
  * @returns {number}
  */
-export const percentValue = (currentValue: number, totalValue: number) => {
+export const percentValue = (
+    currentValue: number,
+    totalValue: number
+): number => {
     return Number(((currentValue * 100) / totalValue).toFixed(0));
 };

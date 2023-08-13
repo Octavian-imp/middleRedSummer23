@@ -1,28 +1,33 @@
 "use client";
 
 import {
+    TActionSelectParcel,
+    TDefaultStateSelectParcel,
     addSelect,
     decreaseSelect,
     defaultStateSelectParcel,
-    reducerSelectParcel,
+    setDefault
 } from "@/reactReducers/parcelSelected";
-import { DragEventHandler, useReducer, useRef } from "react";
+import { TParcelsList } from "@/seeders/parcelsShipment";
+import {
+    Dispatch,
+    DragEventHandler,
+    SetStateAction,
+    useRef
+} from "react";
 import { BsBoxFill } from "react-icons/bs";
+import { ILoadInfo } from "../arrivalShipment/rowTable/types";
 import styles from "./parcelTable.module.scss";
 
 type Props = {
-    parcels: {
-        id: string;
-        totalWeight: number;
-        admissionDate: string;
-    }[];
+    parcels: Omit<ILoadInfo, "tierInfo">[];
+    setChangeParcels: Dispatch<SetStateAction<TParcelsList[]>>;
+    parcelSelected: TDefaultStateSelectParcel;
+    dispatchParcelSelected: Dispatch<TActionSelectParcel>;
 };
 
-const ParcelTable = ({ parcels }: Props) => {
-    const [parcelSelected, dispatchParcelSelected] = useReducer(
-        reducerSelectParcel,
-        defaultStateSelectParcel
-    );
+const ParcelTable = ({ parcels, setChangeParcels,parcelSelected, dispatchParcelSelected }: Props) => {
+    
     const handleDragStart: DragEventHandler<HTMLLabelElement> = (el) => {
         popupRef.current?.classList.remove("hidden");
         popupRef.current?.classList.add("flex");
@@ -34,9 +39,14 @@ const ParcelTable = ({ parcels }: Props) => {
             "application/json",
             JSON.stringify(parcelSelected)
         );
+        if (popupRef.current !== null) {
+            popupRef.current.style.top = `${el.clientY + 10}px`;
+            popupRef.current.style.left = `${el.clientX - 100}px`;
+        }
     };
-    const handleDragEnd: DragEventHandler<HTMLLabelElement> = () => {
+    const handleDragEnd: DragEventHandler<HTMLLabelElement> = (el) => {
         popupRef.current?.classList.add("hidden");
+        popupRef.current?.classList.remove("flex");
     };
     const handleDrag: DragEventHandler<HTMLLabelElement> = (el) => {
         if (popupRef.current !== null) {
@@ -44,6 +54,7 @@ const ParcelTable = ({ parcels }: Props) => {
             popupRef.current.style.left = `${el.clientX - 100}px`;
         }
     };
+
     const popupRef = useRef<HTMLDivElement>(null);
 
     return (
@@ -66,7 +77,7 @@ const ParcelTable = ({ parcels }: Props) => {
                 </div>
             </div>
             <div className="flex items-center text-primary-dark">
-                <span className="text-2xl mr-4">Truck load</span>
+                <span className="text-2xl mr-4">Available packages</span>
                 <span className="text-info">Selected:</span>
                 {parcelSelected.selected}
                 <span className="text-info ml-2">Weight, kg:</span>
@@ -102,8 +113,8 @@ const ParcelTable = ({ parcels }: Props) => {
             <div className="flex flex-col">
                 {parcels.map((parcel) => (
                     <label
-                        key={parcel.id}
-                        htmlFor={parcel.id}
+                        key={parcel.parcelNumber}
+                        htmlFor={parcel.parcelNumber}
                         className={styles.tbody__tr}
                         draggable={true}
                         onDragStart={handleDragStart}
@@ -114,9 +125,9 @@ const ParcelTable = ({ parcels }: Props) => {
                             <input
                                 type="checkbox"
                                 className="accent-primary w-4 h-4 mr-2"
-                                id={parcel.id}
-                                value={parcel.id}
-                                data-weight={parcel.totalWeight}
+                                id={parcel.parcelNumber}
+                                value={parcel.parcelNumber}
+                                data-weight={parcel.weight}
                                 onChange={(el) => {
                                     if (
                                         typeof el.target.dataset.weight !==
@@ -130,6 +141,7 @@ const ParcelTable = ({ parcels }: Props) => {
                                                         +el.target.dataset
                                                             .weight,
                                                     parcelNumber: el.target.id,
+                                                    parcel: parcel,
                                                 },
                                             });
                                         } else {
@@ -146,9 +158,9 @@ const ParcelTable = ({ parcels }: Props) => {
                                     }
                                 }}
                             />
-                            <span>{parcel.id}</span>
+                            <span>{parcel.parcelNumber}</span>
                         </span>
-                        <span className="col-span-1">{parcel.totalWeight}</span>
+                        <span className="col-span-1">{parcel.weight}</span>
                         <span className="col-span-1">
                             {parcel.admissionDate}
                         </span>

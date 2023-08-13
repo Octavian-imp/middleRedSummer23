@@ -1,33 +1,39 @@
 import { localeTime, settingsShortTimeWithHour } from "@/global/LocalTime";
 
-export const parcels = [
+export type TParcelsList = {
+    parcelNumber: string;
+    weight: number;
+    admissionDate: string;
+};
+
+export let parcels:TParcelsList[] = [
     {
-        id: "CN1253822IM",
-        totalWeight: 100,
+        parcelNumber: "CN1253822IM",
+        weight: 100,
         admissionDate: new Date(2023, 11, 11).toLocaleString(
             localeTime,
             settingsShortTimeWithHour
         ),
     },
     {
-        id: "AM1223425IN",
-        totalWeight: 10,
+        parcelNumber: "AM1223425IN",
+        weight: 10,
         admissionDate: new Date(2023, 11, 11).toLocaleString(
             localeTime,
             settingsShortTimeWithHour
         ),
     },
     {
-        id: "DS1254852I2",
-        totalWeight: 70,
+        parcelNumber: "DS1254852I2",
+        weight: 70,
         admissionDate: new Date(2023, 11, 11).toLocaleString(
             localeTime,
             settingsShortTimeWithHour
         ),
     },
     {
-        id: "DS1224355I2",
-        totalWeight: 80,
+        parcelNumber: "DS1224355I2",
+        weight: 80,
         admissionDate: new Date(2023, 11, 12).toLocaleString(
             localeTime,
             settingsShortTimeWithHour

@@ -52,8 +52,8 @@ const dataTableShipment: IRowTableSeed[] = [
         loadInfo: [
             {
                 tierInfo: { name: "Upper tier", idCell: 0 },
-                parcelNumber: parcels[0].id,
-                weight: parcels[0].totalWeight,
+                parcelNumber: parcels[0].parcelNumber,
+                weight: parcels[0].weight,
                 admissionDate: parcels[0].admissionDate,
             },
         ],
@@ -106,8 +106,8 @@ const dataTableShipment: IRowTableSeed[] = [
         loadInfo: [
             {
                 tierInfo: { name: "Upper tier", idCell: 0 },
-                parcelNumber: parcels[1].id,
-                weight: parcels[1].totalWeight,
+                parcelNumber: parcels[1].parcelNumber,
+                weight: parcels[1].weight,
                 admissionDate: parcels[1].admissionDate,
             },
         ],
@@ -160,8 +160,8 @@ const dataTableShipment: IRowTableSeed[] = [
         loadInfo: [
             {
                 tierInfo: { name: "Upper tier", idCell: 0 },
-                parcelNumber: parcels[2].id,
-                weight: parcels[2].totalWeight,
+                parcelNumber: parcels[2].parcelNumber,
+                weight: parcels[2].weight,
                 admissionDate: parcels[2].admissionDate,
             },
         ],
@@ -214,8 +214,8 @@ const dataTableShipment: IRowTableSeed[] = [
         loadInfo: [
             {
                 tierInfo: { name: "Upper tier", idCell: 0 },
-                parcelNumber: parcels[3].id,
-                weight: parcels[3].totalWeight,
+                parcelNumber: parcels[3].parcelNumber,
+                weight: parcels[3].weight,
                 admissionDate: parcels[3].admissionDate,
             },
         ],
