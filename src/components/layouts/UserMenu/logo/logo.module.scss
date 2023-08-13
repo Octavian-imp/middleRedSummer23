@@ -6,12 +6,12 @@
     }
 }
 .icon {
-    @apply text-4xl text-purple-600;
+    @apply text-4xl text-primary;
 }
 .content__wrapper {
     @apply flex flex-col;
     .company__name {
-        @apply text-purple-600 text-lg font-bold;
+        @apply text-primary text-lg font-bold;
     }
     .company__service {
         @apply text-zinc-500;

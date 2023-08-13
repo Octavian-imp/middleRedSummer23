@@ -1,5 +1,8 @@
 "use client";
+import PrimaryButton from "@/components/buttons/primary/PrimaryButton";
 import { useUserMenuContext } from "@/hooks/useUserMenuContext";
+import avatar from "@/static/avatar.png";
+import Image from "next/image";
 import { HiPlus } from "react-icons/hi";
 import SeparatorX from "../../separator/SeparatorX";
 import Logo from "./logo/Logo";
@@ -22,10 +25,11 @@ const UserMenu = () => {
             <Logo />
             <UserNavbar />
             <div className="flex flex-col items-center mt-auto w-full gap-y-4">
-                <button className="flex items-center justify-center gap-x-3 bg-purple-600 text-white py-3 px-2 w-full rounded-lg">
-                    <HiPlus className="text-lg" />
-                    {!isHidden && <span>Create shipment</span>}
-                </button>
+                <PrimaryButton
+                    iconComponent={<HiPlus className="text-lg" />}
+                    text={!isHidden ? "Create shipment" : ""}
+                    className="w-full"
+                />
                 <SeparatorX />
                 <div
                     className={`flex items-center ${
@@ -33,11 +37,15 @@ const UserMenu = () => {
                     } w-full`}
                 >
                     <div className="flex gap-x-3 items-center ">
-                        <span className="w-7 h-7 rounded-full bg-purple-600"></span>
+                        <Image
+                            src={avatar}
+                            alt=""
+                            className="w-7 h-7 rounded-full"
+                        />
                         {!isHidden && (
                             <div className="flex flex-col justify-between">
                                 <span className="font-semibold text-sm">
-                                    Darrell Steward
+                                    Otto Octavius
                                 </span>
                                 <span className="text-xs text-zinc-500">
                                     Manager

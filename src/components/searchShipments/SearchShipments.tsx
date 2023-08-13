@@ -1,17 +1,34 @@
-import { useGetShipmentsQuery } from "@/redux/api/shipmentApi";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useShipments } from "@/hooks/useShipments";
+import { SEARCH, SET_DEFAULT } from "@/redux/actions/shipmentsActions";
 import { ChangeEventHandler, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Clock from "../Clock/Clock";
-import SelectFilter from "../selectFilter/SelectFilter";
-
+import { default as ButtonWithDropdown, default as SelectFilter } from "../buttonWithDropdown/ButtonWithDropdown";
 
 const SearchFilterShipments = () => {
-    const { data: dataShipments, isSuccess } = useGetShipmentsQuery({});
+    const dataShipments = useShipments();
+    const dispatch = useAppDispatch();
+    const cities = [
+        ...new Set<string>(dataShipments.map((item) => item.destEnd)),
+    ];
+    const departments = [
+        ...new Set<string>(dataShipments.map((item) => item.department)),
+    ];
 
-    const [shipNumberValue, setShipNumberValue] = useState<string>();
+    const [shipNumberValue, setShipNumberValue] = useState<string>("");
     const onChange: ChangeEventHandler<HTMLInputElement> = (el) => {
         setShipNumberValue(el.target.value);
+        if (el.target.value.length === 0) {
+            dispatch({ type: SET_DEFAULT });
+        } else {
+            dispatch({
+                type: SEARCH,
+                payload: { shipNumber: el.target.value },
+            });
+        }
     };
+
     //filter settings
     return (
         <div className="w-full bg-white rounded-lg flex items-center px-3 py-3 mb-8 gap-x-2">
@@ -23,18 +40,31 @@ const SearchFilterShipments = () => {
                 defaultValue={shipNumberValue}
                 onChange={onChange}
             />
-            {isSuccess && (
-                <SelectFilter
-                    label="City"
-                    defaultValue={dataShipments[0].destStart}
-                    values={[
-                        ...new Set<string>(
-                            dataShipments.map((item) => item.destStart)
-                        ),
-                    ]}
-                />
-            )}
-            <SelectFilter label="Department" defaultValue="1" values={[]} />
+
+            <ButtonWithDropdown
+                label="City"
+                defaultValue={cities[0]}
+                values={cities}
+                handlerClick={(textContent) => {
+                    dispatch({
+                        type: SEARCH,
+                        payload: { destEnd: textContent },
+                    });
+                }}
+                handlerRemoveValue={() => dispatch({ type: SET_DEFAULT })}
+            />
+            <SelectFilter
+                label="Department"
+                defaultValue={departments[0]}
+                values={departments}
+                handlerClick={(textContent) => {
+                    dispatch({
+                        type: SEARCH,
+                        payload: { department: textContent },
+                    });
+                }}
+                handlerRemoveValue={() => dispatch({ type: SET_DEFAULT })}
+            />
             <Clock />
         </div>
     );

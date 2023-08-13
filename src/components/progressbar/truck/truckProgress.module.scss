@@ -1,0 +1,40 @@
+$stripes-slant: 120deg;
+$stripes-width: 15px;
+$stripes-end-coord: calc($stripes-width * 2);
+.truck__progress_bar__wrapper {
+    @apply absolute h-[60%] left-[28.5%] top-[7%] max-w-[70%] w-full;
+    .truck__progress_bar__width {
+        width: var(--progress-width, 0%);
+        @apply h-full animate-ease-out-back;
+    }
+}
+.bg_stripes_success {
+    background-image: repeating-linear-gradient(
+            $stripes-slant,
+            transparent,
+            transparent $stripes-width,
+            #4ac173 $stripes-width,
+            #4ac173 $stripes-end-coord
+        ),
+        linear-gradient(to bottom, #4abe70, #4abe70);
+}
+.bg_stripes_warning {
+    background-image: repeating-linear-gradient(
+            $stripes-slant,
+            transparent,
+            transparent $stripes-width,
+            #eb9f34 $stripes-width,
+            #eb9f34 $stripes-end-coord
+        ),
+        linear-gradient(to bottom, #efa946, #efa946);
+}
+.bg_stripes_danger {
+    background-image: repeating-linear-gradient(
+            $stripes-slant,
+            transparent,
+            transparent $stripes-width,
+            #da5060 $stripes-width,
+            #da5060 $stripes-end-coord
+        ),
+        linear-gradient(to bottom, #d95669, #d95669);
+}

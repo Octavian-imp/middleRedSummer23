@@ -1,4 +1,4 @@
-import { IRowTable } from "@/components/tables/rowTable/types";
+import { IRowTable } from "@/components/tables/arrivalShipment/rowTable/types";
 import { AnyAction } from "@reduxjs/toolkit";
 import { SET_CITY } from "../actions/cityTypeActions";
 

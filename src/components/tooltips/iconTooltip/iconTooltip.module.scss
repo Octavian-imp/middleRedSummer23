@@ -1,0 +1,13 @@
+.tooltip__icon {
+    @apply text-info relative w-fit h-fit cursor-pointer;
+    &:before {
+        content: "";
+        @apply opacity-0 absolute left-full bottom-full;
+    }
+    &:hover {
+        &:before {
+            content: attr(data-tooltip);
+            @apply bg-info text-primary-dark p-3 text-sm shadow-xl rounded-lg max-w-xs min-w-max opacity-100;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 .table__wrapper {
-    @apply overflow-x-auto w-full;
+    @apply overflow-x-auto w-full animate-inner-fade;
     &__hidden {
         @extend .table__wrapper;
         @apply hidden;

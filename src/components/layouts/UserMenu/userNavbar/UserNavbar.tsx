@@ -1,10 +1,9 @@
 "use client";
-import { EStatusCountNotification } from "@/components/badges/count/types";
+import { EStatusCountNotification } from "@/components/badges/countNotify/types";
 import { useUserMenuContext } from "@/hooks/useUserMenuContext";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BiUser } from "react-icons/bi";
-import { BsBox } from "react-icons/bs";
-import { CiDeliveryTruck } from "react-icons/ci";
+import { BsBox, BsTruck } from "react-icons/bs";
 import { FiFlag } from "react-icons/fi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LiaEnvelopeOpenSolid } from "react-icons/lia";
@@ -36,7 +35,7 @@ const UserNavbar = () => {
             />
             <NavLink
                 href="/user/shipments"
-                iconComponent={<CiDeliveryTruck />}
+                iconComponent={<BsTruck />}
                 text="Shipments"
                 isTextHidden={isHidden}
                 notification={{

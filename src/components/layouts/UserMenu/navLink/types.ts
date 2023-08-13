@@ -1,4 +1,4 @@
-import { EStatusCountNotification } from "@/components/badges/count/types";
+import { EStatusCountNotification } from "@/components/badges/countNotify/types";
 import { Url } from "next/dist/shared/lib/router/router";
 import { ReactNode } from "react";
 

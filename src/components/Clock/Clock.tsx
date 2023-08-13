@@ -9,15 +9,15 @@ const Clock = () => {
         month: "short",
         hour: "numeric",
         minute: "numeric",
-        second: "numeric",
-        hourCycle: 'h23'
+        hour12: true,
     };
     const [clock, setClock] = useState<string | null>(null);
     useEffect(() => {
         const getTime = setInterval(() => {
             setClock(new Date().toLocaleString(localeTime, clockOptions));
-        }, 1000);
+        }, 15000);
         return () => clearInterval(getTime);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return <span>{clock}</span>;
 };

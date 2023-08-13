@@ -1,5 +1,6 @@
-import { IRowTable } from "@/components/tables/rowTable/types";
+import { IRowTable } from "@/components/tables/arrivalShipment/rowTable/types";
 import { SET_CITY } from "../actions/cityTypeActions";
+import { SET_SHIPMENTS } from "../actions/shipmentsActions";
 import { rootApi } from "./rootApi";
 
 export const shipmentsApi = rootApi.injectEndpoints({
@@ -12,11 +13,21 @@ export const shipmentsApi = rootApi.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
                     dispatch({ type: SET_CITY, payload: data });
+                    dispatch({ type: SET_SHIPMENTS, payload: data });
                 } catch (error) {}
             },
             providesTags: ["shipmentsTag"],
         }),
+        sortShipments: build.mutation<
+            NonNullable<IRowTable[]>,
+            { shipNumber: string }
+        >({
+            query: ({ shipNumber }) => ({
+                url: "api/shipments/sort",
+                params: { shipNumber },
+            }),
+        }),
     }),
 });
 
-export const { useGetShipmentsQuery } = shipmentsApi;
+export const { useGetShipmentsQuery, useSortShipmentsMutation } = shipmentsApi;

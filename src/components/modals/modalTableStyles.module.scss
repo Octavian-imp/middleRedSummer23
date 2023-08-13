@@ -1,0 +1,9 @@
+.table__thead {
+    @apply mt-4 grid w-full grid-cols-4 gap-x-2 bg-info rounded-xl p-4;
+}
+.thead__td {
+    @apply text-info flex items-center capitalize;
+}
+.tbody__tr {
+    @apply grid grid-cols-4 gap-x-2 border-b-[0.1rem] border-info p-4;
+}

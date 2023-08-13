@@ -5,10 +5,10 @@
     @apply flex items-center font-semibold;
 }
 .selectFilter__placeholder {
-    @apply text-zinc-400 mr-2;
+    @apply text-zinc-400 mr-2 select-none;
 }
 .selectFilter__activeValue {
-    @apply text-black mr-1;
+    @apply text-black mr-1 select-none;
 }
 
 @mixin default_select_filter_icon_style {
@@ -23,7 +23,7 @@
 }
 
 @mixin default_select_filter_body {
-    @apply bg-white text-black absolute right-0 top-full z-10 -translate-x-1/2 mt-2 py-1 rounded-md shadow-md;
+    @apply bg-white text-black absolute right-0 top-full z-10 mt-2 py-1 rounded-md shadow-md;
 }
 .selectFilter__isNotOpenList {
     @include default_select_filter_body();

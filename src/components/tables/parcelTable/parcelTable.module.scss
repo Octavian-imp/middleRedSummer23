@@ -1,0 +1,43 @@
+.table__wrapper {
+    @apply flex flex-col;
+}
+.table__thead {
+    @apply mt-4 grid w-full grid-cols-4 bg-info rounded-xl p-4;
+}
+.thead__td {
+    @apply text-info flex items-center;
+}
+.tbody__tr {
+    @apply grid grid-cols-4 border-b-[0.1rem] border-info p-4 cursor-grab active:cursor-grabbing;
+}
+
+.checkbox__isCheckedOnce {
+    @apply relative mr-2;
+    &::before {
+        content: "";
+        @apply block bg-white w-2/5 h-0.5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+    }
+    &::after {
+        content: "";
+        @apply bg-primary h-5 w-5 block rounded-md;
+    }
+}
+.checkbox__isNotCheckedOnce {
+    @apply h-5 w-5 bg-info brightness-95 rounded-md mr-2;
+}
+
+.dragInfo__wrapper {
+    @apply flex items-center gap-x-2 p-2 fixed bg-white rounded-lg shadow-lg;
+}
+.dragInfo__icon {
+    @apply rounded-full bg-info text-center p-2 text-primary;
+}
+.dragInfo__content {
+    @apply flex flex-col;
+}
+.dragInfo__title {
+    @apply text-primary-dark;
+}
+.dragInfo__text {
+    @apply text-info text-sm;
+}

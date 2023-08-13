@@ -1,15 +1,24 @@
 "use client";
+import ButtonWithDropdown from "@/components/buttonWithDropdown/ButtonWithDropdown";
 import stylesTabsBtn from "@/components/checkbox/inputCheckbox.module.scss";
 import SearchShipments from "@/components/searchShipments/SearchShipments";
-import SelectFilter from "@/components/selectFilter/SelectFilter";
 import { ArrivalShipment } from "@/components/tables/arrivalShipment/ArrivalShipment";
 import AvailableShipmentTable from "@/components/tables/availableShipment/AvailableShipmentTable";
 import { localeTime } from "@/global/LocalTime";
-import { useGetShipmentsQuery } from "@/redux/api/shipmentApi";
+import { columnNameForArrivalTable } from "@/global/columnNameForArrivalTable";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useShipments } from "@/hooks/useShipments";
+import {
+    SEARCH,
+    SET_DEFAULT,
+    SORT_BY_COLUMN,
+} from "@/redux/actions/shipmentsActions";
 import { useState } from "react";
 import styles from "./index.module.scss";
 
 const TableShipmentPage = () => {
+    const dispatch = useAppDispatch();
+
     const statusButtons = [
         {
             id: "arrivalId",
@@ -31,31 +40,26 @@ const TableShipmentPage = () => {
     const [activeTab, setActiveTab] = useState<string>(defaultCheckedValueId);
 
     //data
-    const { data: dataShipments, isSuccess } = useGetShipmentsQuery({});
+    const dataShipments = useShipments();
     //filter settings
-    const sortByValues = [
-        "Destination",
-        "Shipment number",
-        "Total weight, kg",
-        "Departure date",
-        "Arrival date",
-        "Time delay",
+    const sortByColumns: typeof columnNameForArrivalTable =
+        columnNameForArrivalTable;
+    const arrivalDate = [
+        ...new Set<string>(
+            dataShipments.map((item) =>
+                new Date(item.arrDate).toLocaleString(localeTime, {
+                    year: "numeric",
+                    day: "numeric",
+                    month: "numeric",
+                })
+            )
+        ),
     ];
-    let arrivalDate: string[] = [];
-    if (isSuccess) {
-        arrivalDate = dataShipments.map((item) =>
-            new Date(item.arrDate).toLocaleString(localeTime, {
-                year: "numeric",
-                day: "numeric",
-                month: "numeric",
-            })
-        );
-    }
 
     return (
         <>
             <div className={styles.content__wrapper}>
-                {isSuccess && <SearchShipments />}
+                <SearchShipments />
                 <div className={styles.content__toolbar}>
                     <div className={styles.toolbar__block}>
                         <span className={styles.toolbar__title}>Shipments</span>
@@ -75,22 +79,40 @@ const TableShipmentPage = () => {
                             ))}
                     </div>
                     <div className="flex items-center gap-2">
-                        <SelectFilter
+                        <ButtonWithDropdown
                             label="Sort by"
-                            values={sortByValues}
-                            defaultValue={sortByValues[0]}
+                            values={sortByColumns}
+                            defaultValue={sortByColumns[0]}
+                            handlerClick={(textContent) =>
+                                dispatch({
+                                    type: SORT_BY_COLUMN,
+                                    payload: { columnName: textContent },
+                                })
+                            }
+                            handlerRemoveValue={() =>
+                                dispatch({ type: SET_DEFAULT })
+                            }
                         />
-                        <SelectFilter
+                        <ButtonWithDropdown
                             label="Arrival date"
                             values={arrivalDate}
-                            defaultValue="15.06.2023"
+                            defaultValue={arrivalDate[0]}
+                            handlerClick={(textContent) =>
+                                dispatch({
+                                    type: SEARCH,
+                                    payload: { arrDate: textContent },
+                                })
+                            }
+                            handlerRemoveValue={() =>
+                                dispatch({ type: SET_DEFAULT })
+                            }
                         />
                     </div>
                 </div>
-                {isSuccess && activeTab === statusButtons[0].id && (
+                {activeTab === statusButtons[0].id && (
                     <ArrivalShipment data={dataShipments} />
                 )}
-                {isSuccess && activeTab === statusButtons[1].id && (
+                {activeTab === statusButtons[1].id && (
                     <AvailableShipmentTable data={dataShipments} />
                 )}
             </div>

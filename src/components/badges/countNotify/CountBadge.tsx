@@ -9,7 +9,7 @@ const CountBadge = ({ status, text }: ICountNotifProps) => {
         );
     }
     return (
-        <span className="py-1 px-3 bg-purple-100 text-purple-500 text-sm rounded-[inherit]">
+        <span className="py-1 px-3 bg-purple-100 text-primary text-sm rounded-[inherit]">
             {text}
         </span>
     );

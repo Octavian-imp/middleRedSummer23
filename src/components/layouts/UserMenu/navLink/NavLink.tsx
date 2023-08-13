@@ -1,5 +1,5 @@
 "use client";
-import CountBadge from "@/components/badges/count/CountBadge";
+import CountBadge from "@/components/badges/countNotify/CountBadge";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./navLink.module.scss";
@@ -13,9 +13,10 @@ const NavLink = ({
     notification,
 }: INavLinkProps) => {
     const pathname = usePathname();
-    if (pathname === href) {
+    if (pathname === href || pathname.includes(href as string)) {
         return (
             <Link
+                prefetch={false}
                 href={href}
                 className={
                     isTextHidden
@@ -39,6 +40,7 @@ const NavLink = ({
     }
     return (
         <Link
+            prefetch={false}
             href={href}
             className={
                 isTextHidden

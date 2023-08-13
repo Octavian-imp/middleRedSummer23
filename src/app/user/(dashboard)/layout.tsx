@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const Layout: FC<PropsWithChildren<unknown>> = ({ children }) => {
     return (
         <div
-            className={`flex justify-between m-4 flex-1 gap-x-5 ${gilroySemiBold.className}`}
+            className={`flex justify-between m-4 flex-1 gap-x-8 ${gilroySemiBold.className}`}
         >
             <UserMenuProvider>
                 <UserMenu />

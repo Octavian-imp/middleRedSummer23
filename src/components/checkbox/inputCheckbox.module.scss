@@ -4,11 +4,11 @@
 .inputCheckbox__label {
     &__isChecked {
         @include default_input_checkbox();
-        @apply bg-purple-600 text-white;
+        @apply bg-primary text-white;
     }
     &__isNotChecked {
         @include default_input_checkbox();
-        @apply bg-gray-200 text-purple-500 hover:bg-purple-300 hover:text-purple-600;
+        @apply bg-gray-200 text-primary hover:bg-purple-300 hover:text-purple-600;
     }
 }
 .inputCheckbox__input {

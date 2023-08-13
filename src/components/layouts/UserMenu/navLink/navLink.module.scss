@@ -1,5 +1,5 @@
 @mixin active_link_styles {
-    @apply text-purple-700 bg-zinc-200;
+    @apply text-primary-dark bg-zinc-200;
 }
 @mixin icon_styles {
     // size-icon
@@ -37,5 +37,5 @@
     }
 }
 .placeholder__visible {
-    @apply absolute left-0 w-0.5 h-11 bg-purple-600;
+    @apply absolute left-0 w-0.5 h-11 bg-primary;
 }
